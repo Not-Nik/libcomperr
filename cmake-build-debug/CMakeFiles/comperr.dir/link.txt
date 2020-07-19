@@ -1,0 +1,2 @@
+/usr/bin/ar qc libcomperr.a  CMakeFiles/comperr.dir/lib/comperr.c.o
+/usr/bin/ranlib libcomperr.a

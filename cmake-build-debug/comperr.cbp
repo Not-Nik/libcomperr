@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="comperr"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="clang"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="comperr-test">
+				<Option output="/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug/comperr-test" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="clang"/>
+				<Compiler>
+					<Add directory="/Volumes/nikolas/dev/local/C++/comperr/lib"/>
+					<Add directory="/usr/local/Cellar/llvm/10.0.0_3/lib/clang/10.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/usr/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/System/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug/Makefile&quot;  VERBOSE=1 comperr-test"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="comperr-test/fast">
+				<Option output="/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug/comperr-test" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="clang"/>
+				<Compiler>
+					<Add directory="/Volumes/nikolas/dev/local/C++/comperr/lib"/>
+					<Add directory="/usr/local/Cellar/llvm/10.0.0_3/lib/clang/10.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/usr/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/System/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug/Makefile&quot;  VERBOSE=1 comperr-test/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="comperr">
+				<Option output="/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug/libcomperr.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="clang"/>
+				<Compiler>
+					<Add directory="/Volumes/nikolas/dev/local/C++/comperr/lib"/>
+					<Add directory="/usr/local/Cellar/llvm/10.0.0_3/lib/clang/10.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/usr/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/System/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug/Makefile&quot;  VERBOSE=1 comperr"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="comperr/fast">
+				<Option output="/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug/libcomperr.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="clang"/>
+				<Compiler>
+					<Add directory="/Volumes/nikolas/dev/local/C++/comperr/lib"/>
+					<Add directory="/usr/local/Cellar/llvm/10.0.0_3/lib/clang/10.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/usr/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/System/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug/Makefile&quot;  VERBOSE=1 comperr/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Volumes/nikolas/dev/local/C++/comperr/lib/comperr.c">
+			<Option target="comperr"/>
+		</Unit>
+		<Unit filename="/Volumes/nikolas/dev/local/C++/comperr/lib/comperr.h">
+			<Option target="comperr"/>
+		</Unit>
+		<Unit filename="/Volumes/nikolas/dev/local/C++/comperr/test.c">
+			<Option target="comperr-test"/>
+		</Unit>
+		<Unit filename="/Volumes/nikolas/dev/local/C++/comperr/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

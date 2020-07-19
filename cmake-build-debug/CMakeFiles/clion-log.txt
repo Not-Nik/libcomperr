@@ -1,0 +1,4 @@
+/usr/local/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_COMPILER=/usr/local/opt/llvm/bin/clang -DCMAKE_CXX_COMPILER=/usr/local/opt/llvm/bin/clang++ -G "CodeBlocks - Unix Makefiles" /Volumes/nikolas/dev/local/C++/comperr
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug
