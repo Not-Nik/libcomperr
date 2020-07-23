@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 // https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
 #define ANSI_COLOR_RED     "\x1b[31m"
@@ -13,8 +14,22 @@
 static short errorCount = 0;
 static short warnCount = 0;
 
-bool comperr(bool condition, const char * message, bool warning,
-                    const char * fileName, int lineNumber, int row)
+bool comperr(
+        bool condition, const char * message, bool warning,
+        const char * fileName, int lineNumber, int row, ...
+)
+{
+    va_list args;
+    va_start (args, row);
+    bool r = vcomperr(condition, message, warning, fileName, lineNumber, row, args);
+    va_end(args);
+    return r;
+}
+
+bool vcomperr(
+        bool condition, const char * message, bool warning,
+        const char * fileName, int lineNumber, int row, va_list va
+)
 {
     if (!condition)
     {
@@ -33,6 +48,9 @@ bool comperr(bool condition, const char * message, bool warning,
             fileName = empty;
         }
 
+        char buffer[strlen(message) * 4];
+        vsnprintf(buffer, strlen(message) * 4, message, va);
+
         fprintf(outputStream, "%s%s:%i:%i: %s%s:%s %s\n",
                 ANSI_COLOR_WHITE,
                 fileName,
@@ -41,7 +59,7 @@ bool comperr(bool condition, const char * message, bool warning,
                 (warning ? ANSI_COLOR_MAGENTA : ANSI_COLOR_RED),
                 (warning ? "warning" : "error"),
                 ANSI_COLOR_WHITE,
-                message);
+                buffer);
 
         if (fp != NULL)
         {

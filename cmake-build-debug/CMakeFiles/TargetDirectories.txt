@@ -1,4 +1,0 @@
-/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug/CMakeFiles/comperr-test.dir
-/Volumes/nikolas/dev/local/C++/comperr/cmake-build-debug/CMakeFiles/comperr.dir
