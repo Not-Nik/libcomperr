@@ -9,7 +9,9 @@
 // https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
 #define ANSI_COLOR_RED     "\x1b[31m"
 #define ANSI_COLOR_MAGENTA "\x1b[35m"
+#define ANSI_COLOR_BLUE    "\x1b[94m"
 #define ANSI_COLOR_WHITE   "\x1b[97m"
+#define ANSI_COLOR_RESET   "\x1b[39;49m"
 
 static short errorCount = 0;
 static short warnCount = 0;
@@ -42,15 +44,16 @@ bool vcomperr(bool condition, const char *message, bool warning, const char *fil
         vsnprintf(buffer, strlen(message) * 4, message, va);
 
         fprintf(outputStream,
-                "%s%s:%i:%i: %s%s:%s %s\n",
-                ANSI_COLOR_WHITE,
+                "%s%s:%i:%i: %s%s:%s %s%s\n",
+                ANSI_COLOR_BLUE,
                 fileName,
                 lineNumber + 1,
                 row + 1,
                 (warning ? ANSI_COLOR_MAGENTA : ANSI_COLOR_RED),
                 (warning ? "warning" : "error"),
-                ANSI_COLOR_WHITE,
-                buffer);
+                ANSI_COLOR_BLUE,
+                buffer,
+                ANSI_COLOR_RESET);
 
         if (fp != NULL) {
             int lineCount = 0;
