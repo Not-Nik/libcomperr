@@ -55,11 +55,13 @@ bool vcomperr(bool condition, const char *message, bool warning, const char *fil
         if (fp != NULL) {
             int lineCount = 0;
             int readChar = ' ';
-            for (; lineCount < lineNumber && readChar != EOF;) {
+            for (; lineCount < lineNumber-1 && readChar != EOF;) {
                 readChar = fgetc(fp);
                 if (readChar == '\n')
                     lineCount++;
             }
+
+            int spaces = fprintf(outputStream, "%4i | ", lineNumber);
 
             do {
                 readChar = fgetc(fp);
@@ -67,6 +69,9 @@ bool vcomperr(bool condition, const char *message, bool warning, const char *fil
                     readChar = ' ';
                 fputc(readChar, outputStream);
             } while (readChar != EOF && readChar != '\n');
+
+            for (int i = 0; i < spaces - 2; i++) putc(' ', outputStream);
+            fputs("| ", outputStream);
 
             for (int i = 0; i < row - 1; i++)
                 putc(' ', outputStream);
