@@ -117,3 +117,11 @@ bool endfile() {
     warnCount = 0;
     return true;
 }
+
+int errorcount() {
+    return errorCount;
+}
+
+int warncount() {
+    return warnCount;
+}
