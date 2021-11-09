@@ -9,6 +9,7 @@
 // https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
 #define ANSI_COLOR_RED     "\x1b[31m"
 #define ANSI_COLOR_MAGENTA "\x1b[35m"
+#define ANSI_COLOR_CYAN    "\x1b[36m"
 #define ANSI_COLOR_BLUE    "\x1b[94m"
 #define ANSI_COLOR_WHITE   "\x1b[97m"
 #define ANSI_COLOR_RESET   "\x1b[39;49m"
@@ -16,19 +17,19 @@
 static short errorCount = 0;
 static short warnCount = 0;
 
-bool comperr(bool condition, const char *message, bool warning, const char *fileName, int lineNumber, int row, ...) {
+bool comperr(bool condition, const char *message, enum message_kind kind, const char *fileName, int lineNumber, int row, ...) {
     va_list args;
     va_start (args, row);
-    bool r = vcomperr(condition, message, warning, fileName, lineNumber, row, args);
+    bool r = vcomperr(condition, message, kind, fileName, lineNumber, row, args);
     va_end(args);
     return r;
 }
 
-bool vcomperr(bool condition, const char *message, bool warning, const char *fileName, int lineNumber, int row, va_list va) {
+bool vcomperr(bool condition, const char *message, enum message_kind kind, const char *fileName, int lineNumber, int row, va_list va) {
     if (!condition) {
         FILE *outputStream = stderr;
 #ifndef STDERR_WARN
-        if (warning)
+        if (kind == WARNING)
             outputStream = stdout;
 #endif
 
@@ -43,14 +44,42 @@ bool vcomperr(bool condition, const char *message, bool warning, const char *fil
         char buffer[strlen(message) * 4];
         vsnprintf(buffer, strlen(message) * 4, message, va);
 
+        char *color;
+        switch (kind) {
+            case ERROR:
+                color = ANSI_COLOR_RED;
+                break;
+            case WARNING:
+                color = ANSI_COLOR_MAGENTA;
+                break;
+            case NOTE:
+                color = ANSI_COLOR_CYAN;
+                break;
+            default: color = "\0";
+        }
+
+        char *name;
+        switch (kind) {
+            case ERROR:
+                name = "error";
+                break;
+            case WARNING:
+                name = "warning";
+                break;
+            case NOTE:
+                name = "note";
+                break;
+            default: name = "\0";
+        }
+
         fprintf(outputStream,
                 "%s%s:%i:%i: %s%s:%s %s%s\n",
                 ANSI_COLOR_BLUE,
                 fileName,
                 lineNumber + 1,
                 row + 1,
-                (warning ? ANSI_COLOR_MAGENTA : ANSI_COLOR_RED),
-                (warning ? "warning" : "error"),
+                color,
+                name,
                 ANSI_COLOR_BLUE,
                 buffer,
                 ANSI_COLOR_RESET);
@@ -58,7 +87,7 @@ bool vcomperr(bool condition, const char *message, bool warning, const char *fil
         if (fp != NULL) {
             int lineCount = 0;
             int readChar = ' ';
-            for (; lineCount < lineNumber-1 && readChar != EOF;) {
+            for (; lineCount < lineNumber - 1 && readChar != EOF;) {
                 readChar = fgetc(fp);
                 if (readChar == '\n')
                     lineCount++;
@@ -82,8 +111,8 @@ bool vcomperr(bool condition, const char *message, bool warning, const char *fil
         }
 
         fflush(outputStream);
-        if (warning) warnCount++;
-        else {
+        if (kind == WARNING) warnCount++;
+        else if (kind == ERROR) {
             errorCount++;
 #ifdef ONE_ERROR
             endfile();

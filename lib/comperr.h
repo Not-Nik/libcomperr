@@ -14,9 +14,15 @@
 extern "C" {
 #endif
 
-bool comperr(bool condition, const char *message, bool warning, const char *fileName, int lineNumber, int row, ...);
+enum message_kind {
+    ERROR,
+    WARNING,
+    NOTE
+};
 
-bool vcomperr(bool condition, const char *message, bool warning, const char *fileName, int lineNumber, int row, va_list va);
+bool comperr(bool condition, const char *message, message_kind kind, const char *fileName, int lineNumber, int row, ...);
+
+bool vcomperr(bool condition, const char *message, message_kind kind, const char *fileName, int lineNumber, int row, va_list va);
 
 bool endfile();
 
