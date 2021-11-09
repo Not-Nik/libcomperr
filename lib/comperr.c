@@ -17,131 +17,104 @@
 static short errorCount = 0;
 static short warnCount = 0;
 
-bool comperr(bool condition, const char *message, enum message_kind kind, const char *fileName, int lineNumber, int row, ...) {
+void comperr(const char *message, enum message_kind kind, const char *fileName, int lineNumber, int row, ...) {
     va_list args;
     va_start (args, row);
-    bool r = vcomperr(condition, message, kind, fileName, lineNumber, row, args);
+    vcomperr(message, kind, fileName, lineNumber, row, args);
     va_end(args);
-    return r;
 }
 
-bool vcomperr(bool condition, const char *message, enum message_kind kind, const char *fileName, int lineNumber, int row, va_list va) {
-    if (!condition) {
-        FILE *outputStream = stderr;
-#ifndef STDERR_WARN
-        if (kind == WARNING)
-            outputStream = stdout;
-#endif
+void vcomperr(const char *message, enum message_kind kind, const char *fileName, int lineNumber, int row, va_list va) {
+    FILE *outputStream = stdout;
+    if (kind == ERROR) outputStream = ERROR_STREAM;
+    else if (kind == WARNING) outputStream = WARNING_STREAM;
+    else if (kind == NOTE) outputStream = NOTE_STREAM;
 
-        FILE *fp;
-        fp = fopen(fileName, "r");
-        const char empty[] = "empty";
+    FILE *fp;
+    fp = fopen(fileName, "r");
+    const char empty[] = "empty";
 
-        if (fp == NULL) {
-            fileName = empty;
-        }
-
-        char buffer[strlen(message) * 4];
-        vsnprintf(buffer, strlen(message) * 4, message, va);
-
-        char *color;
-        switch (kind) {
-            case ERROR:
-                color = ANSI_COLOR_RED;
-                break;
-            case WARNING:
-                color = ANSI_COLOR_MAGENTA;
-                break;
-            case NOTE:
-                color = ANSI_COLOR_CYAN;
-                break;
-            default: color = "\0";
-        }
-
-        char *name;
-        switch (kind) {
-            case ERROR:
-                name = "error";
-                break;
-            case WARNING:
-                name = "warning";
-                break;
-            case NOTE:
-                name = "note";
-                break;
-            default: name = "\0";
-        }
-
-        fprintf(outputStream,
-                "%s%s:%i:%i: %s%s:%s %s%s\n",
-                ANSI_COLOR_BLUE,
-                fileName,
-                lineNumber + 1,
-                row + 1,
-                color,
-                name,
-                ANSI_COLOR_BLUE,
-                buffer,
-                ANSI_COLOR_RESET);
-
-        if (fp != NULL) {
-            int lineCount = 0;
-            int readChar = ' ';
-            for (; lineCount < lineNumber - 1 && readChar != EOF;) {
-                readChar = fgetc(fp);
-                if (readChar == '\n')
-                    lineCount++;
-            }
-
-            int spaces = fprintf(outputStream, "%4i | ", lineNumber);
-
-            do {
-                readChar = fgetc(fp);
-                if (readChar == '\t')
-                    readChar = ' ';
-                fputc(readChar, outputStream);
-            } while (readChar != EOF && readChar != '\n');
-
-            for (int i = 0; i < spaces - 2; i++) putc(' ', outputStream);
-            fputs("| ", outputStream);
-
-            for (int i = 0; i < row - 1; i++)
-                putc(' ', outputStream);
-            fputs("^\n", outputStream);
-        }
-
-        fflush(outputStream);
-        if (kind == WARNING) warnCount++;
-        else if (kind == ERROR) {
-            errorCount++;
-#ifdef ONE_ERROR
-            endfile();
-#endif
-        }
+    if (fp == NULL) {
+        fileName = empty;
     }
-    return condition;
+
+    char buffer[strlen(message) * 4];
+    vsnprintf(buffer, strlen(message) * 4, message, va);
+
+    char *color = "\0";
+    if (kind == ERROR) color = ANSI_COLOR_RED;
+    else if (kind == WARNING) color = ANSI_COLOR_MAGENTA;
+    else if (kind == NOTE) color = ANSI_COLOR_CYAN;
+
+    char *name = "\0";
+    if (kind == ERROR) name = "error";
+    else if (kind == WARNING) name = "warning";
+    else if (kind == NOTE) name = "note";
+
+    fprintf(outputStream,
+            "%s%s:%i:%i: %s%s:%s %s%s\n",
+            ANSI_COLOR_BLUE,
+            fileName,
+            lineNumber + 1,
+            row + 1,
+            color,
+            name,
+            ANSI_COLOR_BLUE,
+            buffer,
+            ANSI_COLOR_RESET);
+
+    if (fp != NULL) {
+        int lineCount = 0;
+        int readChar = ' ';
+        for (; lineCount < lineNumber - 1 && readChar != EOF;) {
+            readChar = fgetc(fp);
+            if (readChar == '\n')
+                lineCount++;
+        }
+
+        int spaces = fprintf(outputStream, "%4i | ", lineNumber);
+
+        do {
+            readChar = fgetc(fp);
+            if (readChar == '\t')
+                readChar = ' ';
+            fputc(readChar, outputStream);
+        } while (readChar != EOF && readChar != '\n');
+
+        for (int i = 0; i < spaces - 2; i++) putc(' ', outputStream);
+        fputs("| ", outputStream);
+
+        for (int i = 0; i < row - 1; i++)
+            putc(' ', outputStream);
+        fputs("^\n", outputStream);
+    }
+
+    fflush(outputStream);
+    if (kind == WARNING) warnCount++;
+    else if (kind == ERROR) errorCount++;
 }
 
 bool endfile() {
     if (errorCount > 0) {
         if (warnCount > 0)
-            fprintf(stderr,
+            fprintf(ENDFILE_STREAM,
                     "%i %s and %i %s generated.\n",
                     warnCount,
                     warnCount > 1 ? "warnings" : "warning",
                     errorCount,
                     errorCount > 1 ? "errors" : "error");
         else
-            fprintf(stderr, "%i %s generated.\n", errorCount, errorCount > 1 ? "errors" : "error");
+            fprintf(ENDFILE_STREAM, "%i %s generated.\n", errorCount, errorCount > 1 ? "errors" : "error");
         errorCount = 0;
         warnCount = 0;
-#ifndef MANU_EXIT
+#ifdef AUTO_EXIT
         exit(1);
 #else
         return false;
 #endif
     } else if (warnCount > 0)
-        fprintf(stderr, "%i %s generated.\n", warnCount, warnCount > 1 ? "warnings" : "warning");
+        fprintf(ENDFILE_STREAM, "%i %s generated.\n", warnCount, warnCount > 1 ? "warnings" : "warning");
+    fflush(ENDFILE_STREAM);
     errorCount = 0;
     warnCount = 0;
     return true;

@@ -20,9 +20,22 @@ enum message_kind {
     NOTE
 };
 
-bool comperr(bool condition, const char *message, message_kind kind, const char *fileName, int lineNumber, int row, ...);
+#ifndef ERROR_STREAM
+#define ERROR_STREAM stdout
+#endif
+#ifndef WARNING_STREAM
+#define WARNING_STREAM stdout
+#endif
+#ifndef NOTE_STREAM
+#define NOTE_STREAM stdout
+#endif
+#ifndef ENDFILE_STREAM
+#define ENDFILE_STREAM stdout
+#endif
 
-bool vcomperr(bool condition, const char *message, message_kind kind, const char *fileName, int lineNumber, int row, va_list va);
+void comperr(const char *message, enum message_kind kind, const char *fileName, int lineNumber, int row, ...);
+
+void vcomperr(const char *message, enum message_kind kind, const char *fileName, int lineNumber, int row, va_list va);
 
 bool endfile();
 
